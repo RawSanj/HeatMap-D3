@@ -1,16 +1,53 @@
 <!DOCTYPE html>
-<head>
-    <title>Calender Map</title>
-
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-	
-    <link href="calendermap.css" rel="stylesheet" /> 
-
-    <script src="http://d3js.org/colorbrewer.v1.min.js"></script>
-    <script type="text/javascript" src="bootstrap.min.js"></script> 
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-</head>
-<body>
-<div class="calender-map"></div>
-<script type="text/javascript" src="calendermap.js"></script>
-</body></html>
+<html>
+	<head>
+	    <title>Calender HeatMap</title>
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=10">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+	    <link href="calendermap.css" rel="stylesheet" /> 
+	</head>
+	<body>
+		<div class="row">
+			<h1 class="text-center text-success" style="margin-bottom : 0px;">
+              Interactive Calendar Heat Map <br>
+            </h1>
+			<div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1">
+				<div class="col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4">
+					<h3 class="text-center text-warning"> Palette: </h3>
+					<div class="col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3">
+						<select id="palette" class="form-control">
+							<option value="Cat20" selected>Cat20</option>
+							<option value="Cat20b">Cat20b</option>
+							<option value="Cat20c">Cat20c</option>
+							<option value="Spectral">Spectral</option>
+							<option value="Paired">Paired</option>
+							<option value="RdYlGn">RdYlGn</option>
+							<option value="RdYlBu">RdYlBu</option>
+							<option value="RdGy">RdGy</option>
+							<option value="RdBu">RdBu</option>
+							<option value="PiYG">PiYG</option>
+							<option value="PRGn">PRGn</option>
+							<option value="BrBG">BrBG</option>
+							<option value="PuOr">PuOr</option>
+						</select>
+					</div>
+					<br>			
+				</div> 
+				<div class="calender-map"></div>
+			</div>	
+		</div>
+		
+		<!-- JQuery js -->
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	    <!-- BootStrap Js -->
+	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	    <!-- D3Js -->
+	    <!-- <script src="http://d3js.org/d3.v3.min.js"></script> -->
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+	    <!-- Colorbrew -->
+		<script src="http://d3js.org/colorbrewer.v1.min.js"></script>
+		<script src="calendermap.js"></script>
+	</body>
+</html>

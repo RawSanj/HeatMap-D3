@@ -3,10 +3,6 @@
   font-family: Verdana;
    shape-rendering: crispEdges;
 }
-/*.calender-map {
-  font: 10px sans-serif;
-  shape-rendering: crispEdges;
-}*/
 .day {
   stroke: #666;
   stroke-width: 1px;
@@ -105,4 +101,8 @@ div.tooltip {
 }
 text{
   cursor: pointer;
+}
+select{
+    text-align: center;
+    text-indent: 40px;
 }

@@ -9,11 +9,13 @@ var day = d3.time.format("%w"),
     percent = d3.format(".1%"),
 	format = d3.time.format("%Y%m%d");
 	parseDate = d3.time.format("%Y%m%d").parse;
+
+var globalData = [];  
 		
-var color = d3.scale.category20b()
+var color = d3.scale.category20()
     .domain([0, 1]);
 
-var tooltip = d3.select(".calender-map")
+var tooltip = d3.select("body")
         .append("div")
         .style("position", "absolute")
         .style("visibility", "hidden");
@@ -34,7 +36,7 @@ function stopZoom() {
 }
 
 // define the zoomListener which calls the zoom function on the "zoom" event constrained within the scaleExtents
-var zoomListener = d3.behavior.zoom().scaleExtent([0.5, 1.5]).on("zoom", zoom);
+var zoomListener = d3.behavior.zoom().scaleExtent([1, 1.8]).on("zoom", zoom);
 var stopZoomListener = d3.behavior.zoom().scaleExtent([1, 1]).on("zoom", stopZoom);
     
 var svg = d3.select(".calender-map").selectAll("svg")
@@ -56,12 +58,12 @@ svg.append("text")
     .on('click', function() {
         var id = d3.select(this.parentNode.parentNode);
            console.log(id[0][0].clientHeight);
-        if (id[0][0].clientHeight===300) {
+        if (id[0][0].clientHeight===340) {
           d3.select(this.parentNode.parentNode).attr("height", 183)
           .call(stopZoomListener);
           //d3.select(this).select("g").attr("transform", "translate(132,20)scale(1)")
         } else{
-          d3.select(this.parentNode.parentNode).attr("height", 300)
+          d3.select(this.parentNode.parentNode).attr("height", 340)
           .call(zoomListener);
           //d3.select(this).select("g").attr("transform", "translate(132,20)scale(2)")
         };
@@ -131,7 +133,7 @@ d3.csv("data.csv", function(error, csv) {
     .key(function(d) { return d.Date; })
     .rollup(function(d) { return  Math.sqrt(d[0].Comparison_Type / Comparison_Type_Max); })
     .map(csv);
-	
+	globalData = data;
   rect.filter(function(d) { return d in data; })
       .attr("fill", function(d) { return color(data[d]); })
 	  .attr("data-title", function(d) { return "value : "+Math.round(data[d]*100)})
@@ -150,7 +152,7 @@ d3.csv("data.csv", function(error, csv) {
           tooltip.style("visibility", "hidden");
       })
       .on("mousemove", function(d, i) {
-          tooltip.style("top", (d3.event.pageY - 55) + "px").style("left", (d3.event.pageX - 60) + "px");
+          tooltip.style("top", (d3.event.pageY - 60) + "px").style("left", (d3.event.pageX - 50) + "px");
       })
       .on('click', function() {
           //console.log(d3.select(this));
@@ -176,3 +178,46 @@ function monthPath(t0) {
       + "H" + (w1 + 1) * cellSize + "V" + 0
       + "H" + (w0 + 1) * cellSize + "Z";
 }
+
+//==================================================
+d3.select("#palette")
+  .on("keyup", function() {
+    var newPalette = d3.select("#palette").property("value");
+    if (newPalette != null)                     // when interfaced with jQwidget, the ComboBox handles keyup event but value is then not available ?
+            changePalette(newPalette, globalData);
+        })
+        .on("change", function() {
+          var newPalette = d3.select("#palette").property("value");
+          changePalette(newPalette, globalData);
+  });
+
+function changePalette(paletteName, globalData) {
+  var colors = [];
+  var colorScale = [];
+
+  switch(paletteName) {
+    case "Cat20":
+        colorScale = d3.scale.category20();
+        break;
+    case "Cat20b":
+        colorScale = d3.scale.category20b();
+        break;
+    case "Cat20c":
+        colorScale = d3.scale.category20c();
+        break;
+    default:
+        colors = colorbrewer[paletteName][11];
+        var colorScale = d3.scale.quantize()
+          .domain([0.0, 1.0])
+          .range(colors);
+        break;
+  }
+
+  d3.selectAll(".day")
+    .style("fill", function(d) {
+      if (d != null) return colorScale(globalData[d]);
+      else return "url(#diagonalHatch)";
+    });
+}    
+
+console.log(colorbrewer);

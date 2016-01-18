@@ -1,3 +1,10 @@
+body {
+  font-family:"Lucida Grande","Droid Sans",Arial,Helvetica,sans-serif;
+  background-color: rgba(255, 127, 14, 0.15);
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(240, 173, 78, 0.7);
+}
 .calender-map {
   font-size: 8px;
   font-family: Verdana;
@@ -105,4 +112,19 @@ text{
 select{
     text-align: center;
     text-indent: 40px;
+}
+footer {
+    bottom: 0;
+    width: 100%;
+    padding: 12px;
+    background-color: rgba(240, 173, 78, 0.45);
+    font-size: 16px;
+    border-style: solid;
+  border-width: 1px;
+  border-color: rgba(240, 173, 78, 0.7);
+}
+footer a{
+  text-decoration: none;
+  color: rgba(0,0,0,0.8);
+  font-weight: 600;
 }
